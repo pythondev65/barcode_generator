@@ -47,7 +47,8 @@ td, th {
         <td></td>
         <td>
         {% if user.barcode_img %}
-            <img src="{{ user.barcode_img.url }}" style="width: 50%;">
+            
+            <img src="/media/+{{ user.barcode_img }}" style="width: 50%;">
         {% endif %}
         </td>
         <td>{% if user.barcode_img %}
