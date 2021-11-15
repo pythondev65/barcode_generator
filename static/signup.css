@@ -1,0 +1,64 @@
+.lr-section {
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-image: url(../static/images/sea-image.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+.lr-box {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0px 10px 0px rgb(0 0 0 / 40%);
+  padding: 20px 20px;
+}
+
+.lr-section .container {
+  position: relative;
+}
+
+.lr-section:before {content: "";position: absolute;right: 0;left: 0;top: 0;bottom: 0;background-color: rgba(255, 255, 255, 0.4);}
+
+.lr-box h3 {
+  border-bottom: 1px solid #fe6b02;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding-bottom: 12px;
+  color: #505050;
+}
+
+.input-box label {
+  margin: 0;
+  font-size: 14px;
+  line-height: normal;
+}
+.input-box input {
+  width: 100%;
+  padding: 8px 15px;
+  border: 1px solid #d1d1d1;
+  border-radius: 5px;
+  font-size: 14px;
+}
+a, a:hover {
+  text-decoration: none;
+  color: #fe6b02;
+}
+input:focus {
+  outline: none;
+}
+
+.input-box {
+  margin-top: 20px;
+}
+
+.lr-box .btn-defult {
+  width: 100%;
+  border: none;
+  background: #272c48;
+  color: #fff;
+  text-transform: uppercase;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}

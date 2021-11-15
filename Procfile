@@ -1,0 +1,1 @@
+web: gunicorn Barcode_Generator.wsgi --log-file -

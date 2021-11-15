@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.css-serial {
+  counter-reset: serial-number;
+}
+
+.css-serial td:first-child:before {
+  counter-increment: serial-number;
+  content: counter(serial-number);
+}
+
+</style>
+{% endblock %}
+{% block content %}
+
+    <p>Hii,{{user.username}}</p>
+
+    <table class="css-serial">
+    <thead>
+        <tr>
+        <th scope="col">No</th>
+        <th scope="col">Barcode</th>
+        <th scope="col">Download</th>
+        <th scope="col">State</th>
+        <th scope="col">Country</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in barcodes %}
+        <tr>
+        <td></td>
+        <td>
+        {% if user.barcode_img %}
+            <img src="{{ user.barcode_img.url }}" style="width: 50%;">
+        {% endif %}
+        </td>
+        <td>{% if user.barcode_img %}
+            <a href="{{ user.barcode_img.url }}" download> Download Barcode </a>
+        {% endif %}</td>
+        <td>{{user.state}}</td>
+        <td>{{user.country}}</td>
+        <td>{{date}}</td>
+        <td>Done</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+{% endblock content %}
