@@ -52,6 +52,8 @@ def index(request):
             # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
             user_data.save()
 
+            return redirect("profile")
+
         return render(request,'index.html',{"country":country,"state":state})
     else:
         return redirect("loginProcess")
