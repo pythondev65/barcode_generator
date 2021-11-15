@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form name="bgform" action="" method="POST" class="qr-form-inner row">{% csrf_token %}
+                    <form name="bgform" action="/profile/" method="POST" class="qr-form-inner row">{% csrf_token %}
                         <div class="col-lg-4">
                             <div id="input-box" class="input-box">
                                 <label for="country">Choose a country:</label>
@@ -179,9 +179,9 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="input-box pay-btn-box" >
-                                <button type="submit" id="submit" value="Validate" onclick="return Validate()">Pay</button>
+                                <button type="submit" id="submit" value="Validate" onclick="return Validate()">Generate Barcode</button>
                             </div>
-                        </div>
+                        </div>                        
                     </form>
                 </div>
             </div>
