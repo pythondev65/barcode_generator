@@ -10,4 +10,6 @@ urlpatterns = [
     path("works/",views.works,name="works"),
     path("contact/",views.contact,name="contact"),
     path("news/",views.news,name="news"),
+    path("state/<str:state>/",views.FillupForm,name="state"),
+
 ]

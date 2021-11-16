@@ -5,10 +5,16 @@ from django.contrib.auth.models import AbstractUser
 class signup_data(AbstractUser):
     phonenumber = models.TextField(max_length=10)
 
+
+class Location(models.Model):
+    IIN = models.BigIntegerField()
+    State = models.CharField(max_length=30,null=True,blank=True)
+    Abbreviation = models.CharField(max_length=30,null=True,blank=True)
+    Country = models.CharField(max_length=30,null=True,blank=True)
+
 class barcode(models.Model):
     user = models.ForeignKey(signup_data,on_delete=models.CASCADE)
-    country = models.CharField(max_length=10,null=True)
-    state = models.CharField(max_length=100)
+    location = models.ForeignKey(Location,on_delete=models.SET_NULL,null=True,blank=True)
     dlnumber = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100)

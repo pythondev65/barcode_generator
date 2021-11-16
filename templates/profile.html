@@ -29,7 +29,9 @@ td, th {
 
     <p>Hii,{{user.username}}</p>
 
-    <table class="css-serial">
+    <div class="container">
+  
+        <table class="css-serial">
     <thead>
         <tr>
         <th scope="col">No</th>
@@ -45,22 +47,23 @@ td, th {
     {% for user in barcodes %}
         <tr>
         <td></td>
-        <td>
+        <td style="width:40%">
         {% if user.barcode_img %}
             
-            <img src="/media/{{ user.barcode_img }}" style="width: 50%;">
+            <img src="/media/{{ user.barcode_img }}" style="width: 60%;">
         {% endif %}
         </td>
         <td>{% if user.barcode_img %}
             <a href="{{ user.barcode_img.url }}" download> Download Barcode </a>
         {% endif %}</td>
-        <td>{{user.state}}</td>
-        <td>{{user.country}}</td>
+        <td>{{user.location.State}}</td>
+        <td>{{user.location.Country}}</td>
         <td>{{date}}</td>
-        <td>Done</td>
+        <td>Waiting For Payments</td>
         </tr>
         {% endfor %}
     </tbody>
     </table>
+    </div>
 
 {% endblock content %}

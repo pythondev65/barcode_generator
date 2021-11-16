@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import get_user_model,login,logout,authenticate
 from django.contrib import messages
 from pdf417 import encode, render_image
-from .models import barcode
+from .models import Location, barcode
 from django.conf import settings
 from datetime import date
 
@@ -11,54 +11,100 @@ User = get_user_model()
 def index(request):
     if request.user.is_authenticated:
         country = ["USA","CANADA","MEXICO"]
-        state= ["AL","AK","AB","AS","AZ","AR","BC","CA","CU","CO","CT","DE","DC","FL","GA","GU","HI","HL","ID","IL","IN","IA","KS","KY","LA","ME","MB","MD","MA","MI","MN","MS","MO","MT","NE","NV","NB","NH","NJ","NM","NY","NL","NC","ND","MP","NS","NU","OH","OK","ON","OR","PA","PE","PR","QC","RI","SK","SC","SD","TN","TX","UT","VT","VI","VA","WA","WV","WI","WY","YT"]
+        locations = Location.objects.all()
 
-        if request.method == "POST":
-            country_ = request.POST['country']
-            state_ = request.POST['state']
-            dlnumber = request.POST['dlnumber']
-            firstname = request.POST['firstname']
-            middlename = request.POST['middlename']
-            lastname = request.POST['lastname']
-            address = request.POST['address']
-            city = request.POST['city']
-            zipcode = request.POST['zipcode']
-            dclass = request.POST['dclass']
-            rcode = request.POST['rcode']
-            ecode = request.POST['ecode']
-            dob = request.POST['dob']
-            edate = request.POST['edate']
-            idate = request.POST['idate']
-            udate = request.POST['udate']
-            height = request.POST['height']
-            weight = request.POST['weight']
-            eyeclr = request.POST['eyeclr']
-            hairclr = request.POST['hairclr']
-            gender = request.POST['gender']
-            discriminator = request.POST['discriminator']
-            connum = request.POST['connum']
 
-            string1 = f"{country_} {state_} {dlnumber} {firstname} {middlename} {lastname} {address} {city} {zipcode} {dclass} {rcode} {ecode} {dob} {edate} {idate} {udate} {height} {weight} {eyeclr} {hairclr} {gender} {discriminator} {connum}"
+        # if request.method == "POST":
+        #     country_ = request.POST['country']
+        #     state_ = request.POST['state']
+        #     dlnumber = request.POST['dlnumber']
+        #     firstname = request.POST['firstname']
+        #     middlename = request.POST['middlename']
+        #     lastname = request.POST['lastname']
+        #     address = request.POST['address']
+        #     city = request.POST['city']
+        #     zipcode = request.POST['zipcode']
+        #     dclass = request.POST['dclass']
+        #     rcode = request.POST['rcode']
+        #     ecode = request.POST['ecode']
+        #     dob = request.POST['dob']
+        #     edate = request.POST['edate']
+        #     idate = request.POST['idate']
+        #     udate = request.POST['udate']
+        #     height = request.POST['height']
+        #     weight = request.POST['weight']
+        #     eyeclr = request.POST['eyeclr']
+        #     hairclr = request.POST['hairclr']
+        #     gender = request.POST['gender']
+        #     discriminator = request.POST['discriminator']
+        #     connum = request.POST['connum']
 
-            codes = encode(string1)
-            image = render_image(codes)
+        #     string1 = f"{country_} {state_} {dlnumber} {firstname} {middlename} {lastname} {address} {city} {zipcode} {dclass} {rcode} {ecode} {dob} {edate} {idate} {udate} {height} {weight} {eyeclr} {hairclr} {gender} {discriminator} {connum}"
+
+        #     codes = encode(string1)
+        #     image = render_image(codes)
         
-            user_data = barcode.objects.create(user=request.user,country=country_,state=state_,dlnumber=dlnumber,firstname=firstname,middlename=middlename,lastname=lastname,address=address,city=city,zipcode=zipcode,dclass=dclass,rcode=rcode,ecode=ecode,dob=dob,edate=edate,idate=idate,udate=udate,height=height,weight=weight,eyeclr=eyeclr,hairclr=hairclr,gender=gender,discriminator=discriminator,connum=connum)
+        #     user_data = barcode.objects.create(user=request.user,country=country_,state=state_,dlnumber=dlnumber,firstname=firstname,middlename=middlename,lastname=lastname,address=address,city=city,zipcode=zipcode,dclass=dclass,rcode=rcode,ecode=ecode,dob=dob,edate=edate,idate=idate,udate=udate,height=height,weight=weight,eyeclr=eyeclr,hairclr=hairclr,gender=gender,discriminator=discriminator,connum=connum)
 
-            user_data.save()
-            print(settings.MEDIA_ROOT)
-            image.save(str(settings.BASE_DIR)+"/media/"+'barcode_{}.jpg'.format(user_data.pk))
-            # image.save('barcode_{}.jpg'.format(user_data.pk))
-            # user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
-            user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
-            # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
-            user_data.save()
+        #     user_data.save()
+        #     print(settings.MEDIA_ROOT)
+        #     image.save(str(settings.BASE_DIR)+"/media/"+'barcode_{}.jpg'.format(user_data.pk))
+        #     # image.save('barcode_{}.jpg'.format(user_data.pk))
+        #     # user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+        #     user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+        #     # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
+        #     user_data.save()
 
-            return redirect("profile")
+        #     return redirect("profile")
 
-        return render(request,'index.html',{"country":country,"state":state})
+        return render(request,'index.html',{"country":country,"locations":locations})
     else:
         return redirect("loginProcess")
+
+def FillupForm(request,state):
+    location = Location.objects.get(Abbreviation=state)
+    if request.method == "POST":
+        
+        dlnumber = request.POST['dlnumber']
+        firstname = request.POST['firstname']
+        middlename = request.POST['middlename']
+        lastname = request.POST['lastname']
+        address = request.POST['address']
+        city = request.POST['city']
+        zipcode = request.POST['zipcode']
+        dclass = request.POST['dclass']
+        rcode = request.POST['rcode']
+        ecode = request.POST['ecode']
+        dob = request.POST['dob']
+        edate = request.POST['edate']
+        idate = request.POST['idate']
+        udate = request.POST['udate']
+        height = request.POST['height']
+        weight = request.POST['weight']
+        eyeclr = request.POST['eyeclr']
+        hairclr = request.POST['hairclr']
+        gender = request.POST['gender']
+        discriminator = request.POST['discriminator']
+        connum = request.POST['connum']
+
+        string1 = f"{location.Country} {location.State} {dlnumber} {firstname} {middlename} {lastname} {address} {city} {zipcode} {dclass} {rcode} {ecode} {dob} {edate} {idate} {udate} {height} {weight} {eyeclr} {hairclr} {gender} {discriminator} {connum}"
+
+        codes = encode(string1)
+        image = render_image(codes)
+        
+        user_data = barcode.objects.create(user=request.user,location=location,dlnumber=dlnumber,firstname=firstname,middlename=middlename,lastname=lastname,address=address,city=city,zipcode=zipcode,dclass=dclass,rcode=rcode,ecode=ecode,dob=dob,edate=edate,idate=idate,udate=udate,height=height,weight=weight,eyeclr=eyeclr,hairclr=hairclr,gender=gender,discriminator=discriminator,connum=connum)
+
+        user_data.save()
+        print(settings.MEDIA_ROOT)
+        image.save(str(settings.BASE_DIR)+"/media/"+'barcode_{}.jpg'.format(user_data.pk))
+        # image.save('barcode_{}.jpg'.format(user_data.pk))
+        # user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+        user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+        # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
+        user_data.save()
+
+        return redirect("profile")
+    return render(request,"FormFill.html",{"location":location})
 
 def loginProccess(request):
     if request.method == "POST":        
