@@ -46,9 +46,10 @@ def index(request):
             user_data = barcode.objects.create(user=request.user,country=country_,state=state_,dlnumber=dlnumber,firstname=firstname,middlename=middlename,lastname=lastname,address=address,city=city,zipcode=zipcode,dclass=dclass,rcode=rcode,ecode=ecode,dob=dob,edate=edate,idate=idate,udate=udate,height=height,weight=weight,eyeclr=eyeclr,hairclr=hairclr,gender=gender,discriminator=discriminator,connum=connum)
 
             user_data.save()
-            image.save(str(settings.MEDIA_ROOT)+"/"+'barcode_{}.jpg'.format(user_data.pk))
-
-            user_data.barcode_img='barcode_{}.jpg'.format(user_data.pk)
+            # image.save(str(settings.MEDIA_ROOT)+"/"+'barcode_{}.jpg'.format(user_data.pk))
+            image.save('barcode_{}.jpg'.format(user_data.pk))
+            user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+            # user_data.barcode_img = str(settings.MEDIA_ROOT)+"/"+'barcode_{}.jpg'.format(user_data.pk)
             # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
             user_data.save()
 
@@ -66,7 +67,6 @@ def loginProccess(request):
         user = authenticate(username = username, password = password)
         if user:
             login(request,user)
-
             return redirect("index")
         else:
             return redirect("loginProcess")
