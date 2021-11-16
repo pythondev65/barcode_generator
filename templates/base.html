@@ -83,6 +83,7 @@
     {% endblock %}
 </head>
 <body>
+{% if user.is_authenticated %}
     <header class="header-section">
         <div class="header-top">
             <div class="container">
@@ -112,6 +113,8 @@
             </div>
         </div>
     </header>
+
+{% endif %}
     {% block content %}
 
     {% endblock %}
