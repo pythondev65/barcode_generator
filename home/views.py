@@ -47,10 +47,10 @@ def index(request):
 
             user_data.save()
             print(settings.MEDIA_ROOT)
-            image.save('barcode_{}.jpg'.format(user_data.pk))
+            image.save(str(settings.BASE_DIR)+"/media/"+'barcode_{}.jpg'.format(user_data.pk))
             # image.save('barcode_{}.jpg'.format(user_data.pk))
             # user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
-            user_data.barcode_img = 'barcode_{}.jpg'.format(user_data.pk)
+            user_data.barcode_img = str(settings.BASE_DIR)+"/media/"+'barcode_{}.jpg'.format(user_data.pk)
             # print(country_,state_,dlnumber,firstname,middlename,lastname,address,city,zipcode,dclass,rcode,ecode,dob,edate,idate,udate,height,weight,eyeclr,hairclr,gender,discriminator,connum,image)
             user_data.save()
 
